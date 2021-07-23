@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
 class Personel {
-  late int id;
-  late String isim;
-  late bool aktif;
-  Personel({required this.aktif, required this.isim, required this.id});
-  Personel.withID({required this.id, required this.aktif, required this.isim});
+  int id;
+  String isim;
+  bool aktif;
+  Personel({this.aktif, this.isim});
+  Personel.withID({this.id, this.aktif, this.isim});
 
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
