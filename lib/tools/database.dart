@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:veritabani_test/models/personel.dart';
+import '../models/personel.dart';
 
 class DatabaseHelper {
   static DatabaseHelper _databaseHelper;
@@ -42,8 +42,10 @@ class DatabaseHelper {
   }
 
   Future _createTablo(Database db, int versiyon) async {
-    await db.execute(
-        "CREATE TABLE $_personelTablo ($_sutunId INTEGER PRIMARY KEY AUTOINCREMENT,$_sutunIsim TEXT,$_sutunAktif TEXT)");
+    await db.execute("CREATE TABLE $_personelTablo ("
+        "$_sutunId INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "$_sutunIsim TEXT,"
+        "$_sutunAktif TEXT)");
   }
 
   Future<int> personelEkle(Personel per) async {
@@ -55,6 +57,20 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> personelleriGetir() async {
     var db = await getDatabase();
     var sonuc = await db.query(_personelTablo, orderBy: '$_sutunId DESC');
+    return sonuc;
+  }
+
+  Future<int> personeliGuncelle(Personel per) async {
+    var db = await getDatabase();
+    var sonuc = await db.update(_personelTablo, per.toMap(),
+        where: '$_sutunId', whereArgs: [per.id]);
+    return sonuc;
+  }
+
+  Future<int> personelSil(int id) async {
+    var db = await getDatabase();
+    var sonuc =
+        await db.delete(_personelTablo, where: '$_sutunId=?', whereArgs: [id]);
     return sonuc;
   }
 }

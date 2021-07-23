@@ -4,6 +4,7 @@ class Personel {
   int id;
   String isim;
   bool aktif;
+
   Personel({this.aktif, this.isim});
   Personel.withID({this.id, this.aktif, this.isim});
 

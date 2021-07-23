@@ -7,8 +7,6 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
-
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -21,7 +19,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     dbhelper = DatabaseHelper();
-    //ekle();
+    ekle();
+    guncelle();
+    sil();
   }
 
   @override
@@ -38,5 +38,14 @@ class _MyAppState extends State<MyApp> {
   goster() async {
     var s = await dbhelper.personelleriGetir();
     print(s);
+  }
+
+  guncelle() async {
+    per.isim = 'Osman';
+    await dbhelper.personeliGuncelle(per);
+  }
+
+  sil() async {
+    await dbhelper.personelSil(3);
   }
 }
